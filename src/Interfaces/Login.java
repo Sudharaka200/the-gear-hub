@@ -60,6 +60,11 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setText(" -------------------- or Login with -----------------------");
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/images/Group 1.png"))); // NOI18N
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/images/google_logo-google_icongoogle-51 1.png"))); // NOI18N
         jLabel6.setText("jLabel6");
@@ -73,6 +78,11 @@ public class Login extends javax.swing.JFrame {
         jLabel9.setText("Don't have account?");
 
         jLabel10.setText("SignUp");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -218,6 +228,20 @@ public class Login extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        
+        Signup singupObj = new Signup();
+        singupObj.setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        Home homeObj = new Home();
+        homeObj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel5MouseClicked
 
     /**
      * @param args the command line arguments
