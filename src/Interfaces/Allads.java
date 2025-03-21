@@ -4,17 +4,33 @@
  */
 package Interfaces;
 
+import codes.DBConnect;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import java.sql.ResultSet;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author MSI
  */
 public class Allads extends javax.swing.JFrame {
 
+    Connection conn =  null;
+    PreparedStatement pst = null;
+    private ResultSet rs = null;
+    
+    private DefaultListModel<String> listModel;
+
     /**
      * Creates new form Allads
      */
     public Allads() {
         initComponents();
+        conn = (Connection) DBConnect.connection();
+        loadProducts();
     }
 
     /**
@@ -105,6 +121,11 @@ public class Allads extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        jList1.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                jList1MouseWheelMoved(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -140,6 +161,32 @@ public class Allads extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
+    private void jList1MouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_jList1MouseWheelMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jList1MouseWheelMoved
+
+    private void loadProducts() {
+        listModel = new DefaultListModel<>();
+        try {
+            String sql = "SELECT product_name, img_url, price, description FROM ads";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                String productName = rs.getString("product_name");
+                String productImg = rs.getString("img_url");
+                String price = rs.getString("price");
+                String description  = rs.getNString("description");
+                listModel.addElement(productName + productImg + " - Rs " + price + description);
+            }
+
+            jList1.setModel(listModel);  // Set model to jList1
+            rs.close();
+            pst.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Data Fetch Error: " + e.getMessage());
+        }
+    }
     /**
      * @param args the command line arguments
      */
